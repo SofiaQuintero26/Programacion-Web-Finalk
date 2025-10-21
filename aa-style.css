@@ -1,315 +1,765 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herbo Riego</title>
-    <link rel="stylesheet" href="aa-style.css">
-</head>
-<body>
+/* COLOR VERDE: 0e792d 
+    MAS CLARO: 139037
+    COLOR AZUL: 19759d
+*/
 
-    <header class="header">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
 
-        <img class="logo" src="logo-sf.png">
-        <div class="menu container">
-            <input type="checkbox" id="menu">
-            <label for="menu">
-                <img src="menu.png" class="menu-icono">
-            </label>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#productos">Productos</a></li>
-                    <li><a href="#proyectos">Proyectos</a></li>
-                    <li><a href="#footer" class="cntct">Contacto</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div>
-             <ul>
-                <li class="submenu">
-                    <img src="carrito.png" id="img-carrito" alt="carrito">
-                    <div id="carrito">
-                        <table id="lista-carrito">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th> 
-                                    <th></th> 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <td><strong>Total:</strong></td>
-                                    <td id="total-precio"></td> 
-                                </tr>
-                            </tfoot>
-                        </table>
-                        <a href="#" id="vaciar-carrito" class="'btn-3"><b>Vaciar carrito</b></a>
-                        <a href="#" id="procesar-compra" class="btn-comprar">Comprar</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </header>
+body {
+    margin-top: 0;
+}
 
-    <div id="overlay-notificacion"></div>
-    <div id="notificacion-compra">
-        Gracias por su compra
-    </div>
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-    <section id="inicio" class="inicio"> 
-        <video src="video-inicio.mp4" id="video" autoplay loop muted></video>
-        <img src="logo-sf.png" class="logo-video">
+p {
+    text-align: justify;
+    line-height: 1.5;
+}
 
-        <div class="botones-inicio">
-            <a href="#productos" class="btn-principal">Ver Productos</a>
-            <a href="#proyectos" class="btn-principal">Ver Proyectos</a>
-            <a href="#footer" class="btn-principal">Contacto</a>
-        </div>
+/* TODO LO QUE ESTA OCULTO */
+.site-section, #inicio, #texto-inicio,#productos, #proyectos, #nosotros {
+    display: none;
+}
+#inicio {
+    display: block;
+}
+
+/* TODO LO QUE IMPLICA AL MENU DE ARRIBA */
+.header {
+    display: flex;
+    align-items: center;
+    min-height: 90px;
+    max-height: 100px;
+    position: fixed; 
+    top: 0;          
+    width: 100%;     
+    padding: 8px 16px;
+    background-color: transparent; 
+    transition: background-color 0.3s ease;
+    z-index: 999;
+    padding: 4px 16px;
+    gap: 40px;
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+
+}
+.header.scrolled {
+    opacity: 1; 
+    pointer-events: auto; 
+    background-color: #ffffffd3; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.header.scrolled .menu .navbar ul li a {
+    color: #052e11; 
+}
+.menu {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    flex-grow: 1;
+}
+.logo {
+    position: relative;
+    width: 200px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.navbar ul {
+    display: flex;
+}
+.menu .navbar ul li {
+    float: left;
+
+}
+.menu .navbar ul li a {
+    font-size: 20px;
+    padding: 20px ;
+    font-weight: 600;
+    color: #1d1d1d;
+    display: block;
+}
+.menu .navbar ul li a:hover {
+    color: #0e792d;
+}
+.header.scrolled .menu .navbar ul li a:hover {
+    color: #139037; 
+}
+#menu {
+    display: none;
+}
+.menu-icono {
+    width: 25px;
+}
+.menu label {
+    cursor: pointer;
+    display: none;
+}
+
+/* CARRITO */
+.submenu {
+    position: relative;
+}
+.submenu #carrito {
+    display: none;
+}
+.submenu #img-carrito {
+    position: relative;
+    width: 35px;
+    top: 0;
+    right: 20px;
+    z-index: 2;
+}
+.submenu:hover #carrito {
+    display: block;
+    position: absolute;
+    right: 0;
+    backdrop-filter: blur(10px);
+    top: 100%;
+    z-index: 1;
+    background-color: #6669666b;
+    padding: 20px;
+    min-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+table {
+    width: 100%;
+}
+th, td {
+    color: #1d1d1d;
+    font-size: 18px;
+}
+.borrar-producto {
+    color: #1d1d1d;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+.borrar-producto:hover {
+    background-color: #c82333;
+    color: #ffffff;
+}
+#lista-carrito img {
+    width: 70px;
+    height: 70px; 
+    object-fit: cover; 
+    border-radius: 4px;
+}
+.submenu #vaciar-carrito {
+    display: block; 
+    width: 25%;
+    font-size: 18px;
+    padding: 10px;
+    background-color: #1390364a;
+    color:#ffffff;
+    padding:5px 16px;
+    border-radius:10px;
+    text-decoration:none;
+}
+.submenu #vaciar-carrito:hover {
+    background-color: #0c5e235b;
+}
+.submenu #procesar-compra {
+    display: block; 
+    width: 18%;
+    font-size: 18px;
+    padding: 10px;
+    background:#139036d9;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:10px;
+    text-decoration:none;
+}
+.submenu #procesar-compra:hover {
+    background-color: #0b6224;
+}
+#overlay-notificacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(5px); 
+    z-index: 9999; 
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#notificacion-compra {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 10000; 
+    background-color: #0e792d;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+    
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#overlay-notificacion.visible,
+#notificacion-compra.visible {
+    opacity: 1;
+    visibility: visible;
+}
 
 
-        
+/* SECCION INICIO + TEXTO INICIO*/
+.inicio {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 100vh;
+    min-height: 0;
+}
+.inicio #video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 
-    </section>
+}
+.logo-video {
+    position: absolute; 
+    top: 45%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 5; 
+    max-width: 800px;
+    width: 80%; 
+    
+    opacity: 1; 
+    pointer-events: none; 
+    transition: opacity 0.3s ease; 
+}
+.logo-video.oculto {
+    opacity: 0; 
+}
+.botones-inicio {
+    position: absolute; 
+    top: 80%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 1; 
+    display: flex; 
+    gap: 50px; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+    max-width: 1200px; 
 
-    <section id="texto-inicio" class="texto-inicio">
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+.botones-inicio.visible {
+    opacity: 1;
+}
+.btn-principal {
+    display: inline-block; 
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-principal {
+    background-color: #ffffff9e; 
+    color: #0e792d;
+   
+}
+.btn-principal:hover {
+    background-color: #ffffff;
+    color: #0e792d; 
+}
+.texto-inicio {
+    max-width: 1000px;
+    margin: 20px auto;
+    font-size: 20px;
+}
+.presentacion {
+    display: flex; 
+    align-items: center; 
+    gap: 30px;
 
-        <div class="presentacion">
-            <img src="icono-presentacion.png" id="icono-presentacion">
-            <p class="p-principal">
-                Herbo Riego es una empresa de San Martín de los Andes dedicada al 
-                diseño, instalación y mantenimiento de sistemas de riego automáticos 
-                y por goteo. Ofrecemos soluciones integrales para parques, jardines 
-                y espacios productivos, adaptadas a las necesidades de cada cliente. 
-                Además, contamos con una amplia variedad de insumos y accesorios de 
-                jardinería y brindamos asesoramiento técnico personalizado para 
-                garantizar un uso eficiente del agua y el cuidado de tus espacios verdes.
-            </p>
+}
+.presentacion img {
+    width: 25%;
+    height: auto;
+    flex-shrink: 0; 
+}
+.presentacion .p-principal {
+    width: 75%;
+}
+.texto-inicio p {
+    margin-top: 30px; 
+}
+.presentacion-nina {
+    display: flex; 
+    align-items: center; 
+    gap: 30px;
 
-        </div>
+}
+.presentacion-nina img {
+    width: 25%;
+    height: auto;
+    flex-shrink: 0; 
+}
 
-        <div class="presentacion-nina">
 
-            <p class="p-principal">
-                Nina Adem, técnica en Jardinería, egresada de la Universidad Nacional de Buenos Aires, el
-                20 de Octubre de 1999.
-                "Tuve la suerte de crecer e
-                internalizar el campo en mi persona. Crecí y me eduqué en la de Aluminé y
-                Zapala. Hasta que fui a la facultad en Buenos Aires.
-                Desde que me recibí trabajo en Junín de los Andes y San Martín de los Andes.
-                En forma independiente desde 1999.
-                Primero haciendo riegos y jardines en forma particular y luego en 2003 abrí
-                Herbo Riego para ampliar la comercialización.
-                Con tendencia a lo natural, armando jardines que integren lo autóctono con lo
-                exótico en un equilibrio amable."
-            </p>
-            <img src="nina.png" id="icono-nina">
+/* PRODUCTOS */
+.contenido-productos {
+    padding-top: 10px; 
+    padding-bottom: 50px;
+    max-width: 1200px;
+    margin: 0 auto; 
+}
+.contenido-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px; 
+    padding-top: 120px; 
+    max-width: 1200px;
+    margin: 0 auto; 
+}
+.producto {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease; 
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.producto:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+    z-index: 10;
+}
+.producto img {
+    width: 350px; 
+    height: 250px;
+    object-fit: cover;
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.producto h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #1d1d1d;
+}
+.producto p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+    text-align: justify; 
+}
+.producto .precio {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0e792d; 
+    margin-bottom: 20px;
+    text-align: center;
+}
+.producto .agregar-carrito {
+    display: block; 
+    width: 100%;
+    padding: 10px;
+    background:#139037;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:10px;
+    text-decoration:none;
+}
+.producto .agregar-carrito:hover {
+    display: block; 
+    width: 100%;
+    padding: 10px;
+    color: #ffffff;
+    background-color: #0b6224;
+}
 
-        </div>
 
-    </section>
+/* PROYECTOS */
+#proyectos {
+    padding-top: 100px; 
+    background-color: #f7f7f7;
+}
+.contenido-proyectos {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.contenido-proyectos h1 {
+    font-size: 36px;
+    color: #0b6224;
+    margin-bottom: 40px;
+}
+.tarjeta-introduccion {
+    background-color: #ffffff; 
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 50px;
+    border-bottom: 3px solid #0e792d; 
+}
+.tarjeta-introduccion h2 {
+    color: #0e792d; 
+    font-size: 32px; 
+    margin-bottom: 20px;
+    border-bottom: none; 
+    padding-bottom: 0;
+}
+.tarjeta-introduccion p {
+    font-size: 18px;
+}
+.colaboradores {
+    display: flex;
+    justify-content: center; 
+    gap: 60px; 
+    margin: 30px 0;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+.colaboradores p {
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+}
+.cita-final {
+    font-style: italic;
+    color: #0e792d; 
+    margin-top: 25px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.linea-tiempo {
+    position: relative;
+    padding-left: 20px; 
+}
+.linea-tiempo h2 {
+    color: #0e792d;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+.ano-contenedor {
+    position: relative;
+    padding-bottom: 30px;
+    padding-left: 30px; 
+}
+.ano-titulo {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    color: #0e792d;
+    margin-bottom: 10px;
+    transform: translateX(-35px);    
+    background-color: #f7f7f7; 
+    padding-right: 10px;
+    display: inline-block;
+}
+.ano-contenedor ul {
+    list-style: none;
+    padding-left: 0;
+}
+.ano-contenedor ul li {
+    background-color: #fff;
+    padding: 10px 15px;
+    border-left: 5px solid #139037; 
+    margin-bottom: 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    line-height: 1.4;
+    font-size: 16px;
+    color: #333;
+}
+.destacado-servicio {
+    font-weight: bold;
+    color: #19759d;
+    padding: 5px 0;
+}
 
-    <section id="productos" class="productos">  
-      
-        <div class="contenido-productos">
 
-            <div class="producto" id="1">
+/* FOOTER */
+footer {
+    background-color: #139037; 
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+}
+.footer-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 30px;
+}
+.columna-contacto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.columna-contacto h2 {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+.redes-sociales {
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+}
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+.social-item a:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;       
+    height: 50px;      
+    border-radius: 50%; 
+    background-color: #e0e9e3d5; 
+    transition: background-color 0.3s ease;
+}
+.social-item a:first-child:hover {
+    background-color: #0b6224; 
+}
+.social-item img {
+    width: 40px; 
+    height: 40px;
+    object-fit: contain; 
+    border-radius: 0; 
+}
+.social-item a:last-child {
+    color: #ffffff;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+.social-item a:last-child:hover {
+    color: #0b6224;
+}
+.copyright {
+    margin-top: 30px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
 
-                <img src="manguera.webp" id="manguera">
-                <h3>Manguera QUATTROFLEX</h3>
-                <p>Manguera de PVC con triple capa, ideal para jardín o huerta.</p>
-                <p class="precio">$15.000</p>
-                <a href="#" class="agregar-carrito btn-principal" data-id="1">Añadir al Carrito</a>
+/* MEDIA */
+@media (max-width: 770px) {
+    
+    .container {
+        padding: 0 15px; 
+    }
 
-            </div>
+    /* MENU */
+    .header {
+        min-height: 70px; 
+        padding: 10px 15px;
+        gap: 20px;
+    }
+    .menu label {
+        display: block; /
+    }
+    .logo {
+        display: none;
+    }
+    .navbar {
+        position: fixed;
+        top: 70px; 
+        left: 0;
+        right: 0;
+        width: 100%;
+        display: none; 
+        background-color: #0e792d;
+        flex-direction: column;
+        height: auto;
+        padding: 0;
+    }
+    .navbar ul {
+        flex-direction: column;
+        padding: 0;
+        width: 100%;
+    }
+    .menu .navbar ul li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        float: none;
+    }
+    .menu .navbar ul li a {
+        color: #ffffff;
+        padding: 15px 20px;
+        text-align: center;
+    }
+    .header.scrolled .menu .navbar ul li a {
+        color: #ffffff; 
+    }
+    #menu:checked ~ .navbar {
+        display: flex;
+    }
+    
+    /* INICIO */
+    .logo-video {
+        top: 35%;
+        width: 90%; 
+        max-width: 90%;
+    }
+    .botones-inicio {
+        top: 75%; 
+        flex-direction: column;
+        gap: 20px; 
+    }
+    .btn-principal {
+        width: 80%; 
+        font-size: 20px;
+        padding: 12px 20px;
+        text-align: center;
+    }
 
-            <div class="producto" id="2">
+    /* TEXTO INICIO */
+    .texto-inicio {
+        padding: 20px 15px;
+    }
+    .presentacion, .presentacion-nina {
+        flex-direction: column; 
+        text-align: center;
+    }
+    .presentacion img, .presentacion-nina img {
+        width: 70%; 
+        margin-bottom: 20px;
+    }
+    .presentacion .p-principal, .presentacion-nina .p-principal {
+        width: 100%;
+        text-align: justify;
+    }
+    
+    /* PRODUCTOS */
+    .contenido-productos {
+        grid-template-columns: 1fr; 
+        padding: 100px 15px 50px 15px;
+    }
+    .producto img {
+        width: 100%; 
+        height: auto;
+        max-height: 200px; 
+    }
 
-                <img  src="transporta-manguera.avif" id="transporta-manguera">
-                <h3>Carro portamanguera</h3>
-                <p>Para guardar hasta 50 m de una manguera de jardín de 3/4” de diámetro o 25 m de 1”.</p>
-                <p class="precio">$25.000</p>
-                <a href="#" class="agregar-carrito btn-principal" data-id="2">Añadir al Carrito</a>
+    /* CARRITO */
+    .submenu:hover #carrito {
+        min-width: 95%; 
+        right: 2.5%;
+    }
+    th, td {
+        font-size: 14px; 
+    }
+    .submenu #vaciar-carrito {
+        width: 80%; 
+        font-size: 16px;
+    }
+    .submenu #procesar-compra {
+    display: block; 
+    width: auto;
+    font-size: 18px;
+    padding: 10px;
+    background:#139036d9;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:10px;
+    text-decoration:none;
+}
+    #lista-carrito td:first-child {
+        display: none; 
+    }
+    #notificacion-compra {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 10000; 
+    background-color: #0e792d;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
 
-            </div>
+    opacity: 0;
+    visibility: hidden;
+    
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #notificacion-compra.visible {
+        opacity: 1;
+        visibility: visible;
+    }
 
-            <div class="producto" id="3">
+    /* PROYECTOS */
+    .colaboradores {
+        flex-direction: column; 
+        gap: 15px;
+    }
+    .linea-tiempo {
+        padding-left: 10px;
+    }
+    .linea-tiempo::before {
+        left: 5px; 
+    }
+    .ano-titulo {
+        transform: translateX(0); 
+        font-size: 24px;
+        padding-right: 5px;
+    }
+    .ano-contenedor {
+        padding-left: 20px;
+    }
 
-                <img src="macetas.webp" id="macetas">
-                <h3>Maceta URBALIVE</h3>
-                <p>Macetas de autorriego mantienen la humedad constante.</p>
-                <p class="precio">$30.000</p>
-                <a href="#" class="agregar-carrito btn-principal" data-id="3">Añadir al Carrito</a>
-
-            </div>
-
-            <div class="producto" id="4">
-
-                <img src="pistolas-riego.avif" id="pistolas">
-                <h3>Pistola TREND</h3>
-                <p>Pistola accesorio de riego con conexiones ajustables.</p>
-                <p class="precio">$20.000</p>
-                <a href="#" class="agregar-carrito btn-principal" data-id="4">Añadir al Carrito</a>
-
-            </div>
-
-            <div class="producto" id="5">
-
-                <img src="compostera.webp" id="compostera">
-                <h3>Compostera</h3>
-                <p>En esta compostera, las lombrices transforman los restos de comida en compost.</p>
-                <p class="precio">$25.000</p>
-                <a href="#" class="agregar-carrito btn-principal" data-id="5">Añadir al Carrito</a>
-
-            </div>
-
-            <div class="producto" id="6">
-
-                <img src="smart-garden.png" id="smrt-grdn">
-                <h3>Smart garden</h3>
-                <p>Maceta con luces LED para el crecimiento acelerado.</p>
-                <p class="precio">$30.000</p>
-                <a href="#" class="agregar-carrito btn-principal" data-id="6">Añadir al Carrito</a>
-
-            </div>
-        
-        </div>
-
-    </section>
-
-    <section id="proyectos" class="site-section">
-        <div class="contenido-proyectos">
-            
-            
-            <div class="tarjeta-introduccion">
-                <h2>Trabajos de Diseño, Ejecución y Riego</h2>
-                <p>
-                    En <b>Herbo Riego</b> y nuestra empresa asociada, <b>Constructora de Jardines</b> (junto a Gerardo Barrantes), transformamos espacios en la Patagonia. Nuestra labor se centra en el diseño, la ejecución y el mantenimiento de parques y sistemas de riego automatizado.
-                </p>
-                <div class="colaboradores">
-                    <p><b>Colaboraciones Históricas en Diseño:</b> Brígida Pacheco.</p>
-                    <p><b>Ejecución y Obras:</b> Gerardo Barrantes (Constructora de Jardines).</p>
-                </div>
-                <p class="cita-final">
-                    Una larga trayectoria y la satisfacción de nuestros clientes nos animan y entusiasman a seguir haciendo lo que nos gusta: sugerir, asesorar, diseñar y ejecutar con garantía y confianza.
-                </p>
-            </div>
-
-            <div class="linea-tiempo">
-                <h2>Proyectos Ejecutados y en Curso (2007 - 2024)</h2>
-                
-                <div class="ano-contenedor">
-                    <span class="ano-titulo">2024</span>
-                    <ul>
-                        <li>Luciano Marchini - Chapelco Golf D72: Proyecto de Parquización y ejecución. Riego con Sistema Hydrawise.</li>
-                    </ul>
-                </div>
-                
-                <div class="ano-contenedor">
-                    <span class="ano-titulo">2023</span>
-                    <ul>
-                        <li><b>Ea Huechahue:</b> Extensión Riego y nuevo proyecto extensivo. Automatización riego chacras con sistema Hydrawise. (En proceso)</li>
-                        <li>Carlos Lobalzo - Proyecto de Parquización y riego.</li>
-                        <li>Maria Ines Isola y Paulo Galderisi (Meliquina): Proyecto de Parquización. (En proceso)</li>
-                        <li>Monica de Cicco (Peñon de Lolog): Proyecto de Parquización. (Etapa 1 finalizada)</li>
-                        <li>Lorena Hoffmann, Christian Petruzzi (Valle Escondido): Proyectos de Parquización.</li>
-                        <li>Guillermo Scappini, Jöel Vuarambon, Jorge Coppola, Estudio KT AR, Pino Leporace, Silvina Selva: Proyectos y Riego Hydrawise.</li>
-                        <li>Rosana Thomson, Santiago Bello: Riego automatizado Hydrawise.</li>
-                    </ul>
-                </div>
-                
-                <div class="ano-contenedor">
-                    <span class="ano-titulo">2022</span>
-                    <ul>
-                        <li>Luis Chodorge (Complejo Pilo Lil): Diseño integral 11 casas + Ejecución Riego y Plantación.</li>
-                        <li>Marta Carlos, Marina Poveda, Daniel Gesualdo, Martin Rodriguez, Cecilia Balestrini: Diseños de Parquización.</li>
-                        <li>Ea Santa Lucía: Parquización y Riego Casas 1 y 2 entrada. (Finalizado)</li>
-                    </ul>
-                </div>
-                
-                <div class="ano-contenedor">
-                    <span class="ano-titulo">2021</span>
-                    <p class="destacado-servicio"><b>Foco en Riego Quilquihue:</b> 5 lotes (Rizzo, Buchanan, Pardal, etc.)</p>
-                    <ul>
-                        <li>Ea Huechahue: Riego 2,5 has. Propiedad de Jane Williams. (Finalizado)</li>
-                        <li>Daniel Aguilera (Alumine River Lodge): Reforma y mejora de Riego.</li>
-                        <li>Ricardo y Cecilia Ker (El Desafío), Fernando Rubio (Las Marías del Valle): Finalizados.</li>
-                        <li><b>Proyectos en Proceso/Diseño:</b> Loli Lanusse, Parque Diana, Alicia Henriquez, Arq Agustina Cravero, Maricel Dotta, Eliana Martinez.</li>
-                        <li><b>Ejecución/Riego Finalizado:</b> Renteria, Martin, Coto, Eiff, Vázquez.</li>
-                    </ul>
-                </div>
-                
-                <div class="ano-contenedor">
-                    <span class="ano-titulo">2020</span>
-                    <ul>
-                        <li>4 Cabañas Caleuche (Arq Tulio Rossini): Diseño de parquización (En ejecución).</li>
-                        <li>Daniel Coria: Diseño de jardin - Pileta - Riego.</li>
-                        <li>Santiago Buratovich, Antonio Duarte, Nara Oses: Riego/Proyectos finalizados.</li>
-                        <li>Claudio Alderete, Claudio Carbajal: Riego (Las Marías del Valle).</li>
-                    </ul>
-                </div>
-                
-                <div class="ano-contenedor anos-antiguos">
-                    <span class="ano-titulo">2007 - 2019</span>
-                    <p class="destacado-servicio">Incluye proyectos clave y colaboraciones iniciales:</p>
-                    <ul>
-                        <li><b>Museo Colección GEORG (2017/2019):</b> Diseño de jardín y Riego.</li>
-                        <li><b>Campo Ahuva (2007):</b> 20 has trabajadas en su totalidad, sobre el Río Chimehuin. Propiedad del Sr Eduardo Cohen.</li>
-                        <li><b>Chocolatería Mamusia (2013):</b> Proyecto de Paisajismo.</li>
-                        <li><b>Hotel Boutique Paraíso (2016):</b> Proyecto paisajístico.</li>
-                        <li>Trabajos en Chapelco Golf, Cascada Chica, Valle Escondido, El Hípico, Raitrai.</li>
-                    </ul>
-                </div>
-                
-            </div>
-            
-        </div>
-    </section>
-
-<script src="aa-script.js"></script>
-</body>
-
-<footer id="footer">
-    <div class="footer-contenido container">
-        
-        <div class="columna-contacto">
-            <h2>Contacto:</h2>
-            
-            <div class="redes-sociales">
-                
-                <div class="social-item">
-                    <a href="https://www.whatsapp.com/catalog/5492944610953/?app_absent=0" target="_blank" aria-label="WhatsApp">
-                        <img src="wpp.png" alt="Logo WhatsApp">
-                    </a>
-                    <a href="https://www.whatsapp.com/catalog/5492944610953/?app_absent=0" target="_blank">Enviar Mensaje</a> 
-                </div>
-
-                <div class="social-item">
-                    <a href="https://www.instagram.com/herboriegosma/" target="_blank" aria-label="Instagram">
-                        <img src="instagram.png" alt="Logo Instagram">
-                    </a>
-                    <a href="https://www.instagram.com/herboriegosma/" target="_blank">Síguenos en Instagram</a>
-                </div>
-
-                <div class="social-item">
-                    <a href="https://www.facebook.com/herboriegosma/?ref=_xav_ig_profile_page_web" target="_blank" aria-label="Facebook">
-                        <img src="fb.png" alt="Logo Facebook">
-                    </a>
-                    <a href="https://www.facebook.com/herboriegosma/?ref=_xav_ig_profile_page_web" target="_blank">Visita nuestro Facebook</a>
-                </div>
-            </div>
-
-        </div>
-        
-        <p class="copyright">Herbo Riego © 2024. Todos los derechos reservados.</p>
-        
-    </div>
-</footer>
-</html>
+    /* FOOTER */
+    .social-item {
+        justify-content: center;
+        width: 100%;
+    }
+    .social-item a:last-child {
+        font-size: 16px;
+    }
+}
